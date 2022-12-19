@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 //配置插件
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 28
@@ -37,12 +37,6 @@ allprojects {
     repositories {
         jcenter()
     }
-    tasks.withType(Javadoc) {
-        options{ encoding "UTF-8"
-            charSet 'UTF-8'
-            links "http://docs.oracle.com/javase/7/docs/api"
-        }
-    }
 }
 
 //publish{
@@ -56,3 +50,16 @@ allprojects {
 //    website = 'https://github.com/aicareles/Android-BLE'
 //    licences = ['Apache-2.0']
 //}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            //指定group/artifact/version信息，可以不填。默认使用项目group/name/version作为groupId/artifactId/version
+            groupId project.group
+            artifactId project.name
+            version '1.0.0'
+            //如果是war包填写components.web，如果是jar包填写components.java
+        }
+    }
+
+}
